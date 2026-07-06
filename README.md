@@ -375,7 +375,7 @@ This project is licensed under the **MIT License**.
 
 # 👨‍💻 Author
 
-**Siddhartha Ghosal**
+**Siddhartha Ghosal**  
 **Amrita Chakraborty**
 
 B.Tech CSE (AI & ML)
