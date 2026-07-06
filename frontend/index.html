@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jal Rakshak | Multi-Agent Water Contamination Detector</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ambient-glow bg-blue"></div>
+    <div class="ambient-glow bg-purple"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <i class="fa-solid fa-droplet logo-icon"></i>
+                <div>
+                    <h1>Jal Rakshak <span class="hindi-text">(जल रक्षक)</span></h1>
+                    <p class="tagline">Multi-Agent AI Water Safety & Authority Escalation System</p>
+                </div>
+            </div>
+            <div class="status-pill">
+                <span class="pulse-indicator"></span>
+                <span>System Status: Active & Local MCP Connected</span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Left Side: Reporting & Pipeline -->
+            <div class="grid-left">
+                <!-- Report Card -->
+                <div class="glass-card report-card">
+                    <h2><i class="fa-solid fa-file-signature text-accent"></i> Report Water Contamination</h2>
+                    <p class="card-desc">Upload a photo of the water source (well, pond, community water point) and specify its location coordinates.</p>
+                    
+                    <form id="reportForm">
+                        <!-- Drag & Drop Zone -->
+                        <div class="upload-zone" id="uploadZone">
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            <div class="upload-content">
+                                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                                <p class="primary-text">Drag & drop image here or <span>browse files</span></p>
+                                <p class="sec-text">Supports JPG, JPEG, PNG, WEBP (Max 5MB)</p>
+                            </div>
+                            <div class="preview-container" id="previewContainer" style="display: none;">
+                                <img id="imagePreview" src="" alt="Water source preview">
+                                <button type="button" class="remove-img-btn" id="removeImgBtn"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Coordinates Inputs -->
+                        <div class="coords-row">
+                            <div class="input-group">
+                                <label for="latitude"><i class="fa-solid fa-location-crosshairs"></i> Latitude</label>
+                                <input type="number" id="latitude" step="any" placeholder="e.g. 12.9716" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="longitude"><i class="fa-solid fa-location-crosshairs"></i> Longitude</label>
+                                <input type="number" id="longitude" step="any" placeholder="e.g. 77.5946" required>
+                            </div>
+                        </div>
+
+                        <div class="btn-actions">
+                            <button type="button" class="btn btn-secondary" id="gpsBtn">
+                                <i class="fa-solid fa-location-arrow"></i> Mock Location
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Pipeline Monitor Card -->
+                <div class="glass-card pipeline-card" id="pipelineCard" style="display: none;">
+                    <h2><i class="fa-solid fa-gears text-accent-green"></i> Live Agent Pipeline Monitor</h2>
+                    <p class="card-desc">Real-time trace of executing AI agents as they process your report.</p>
+                    
+                    <div class="pipeline-steps">
+                        <!-- Step 1 -->
+                        <div class="pipeline-step" id="stepVision">
+                            <div class="step-num"><i class="fa-solid fa-eye"></i></div>
+                            <div class="step-details">
+                                <h3>Vision Diagnosis Agent</h3>
+                                <p class="step-status">Pending...</p>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="pipeline-step" id="stepAdvisory">
+                            <div class="step-num"><i class="fa-solid fa-file-shield"></i></div>
+                            <div class="step-details">
+                                <h3>Advisory Agent</h3>
+                                <p class="step-status">Pending...</p>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="pipeline-step" id="stepEscalation">
+                            <div class="step-num"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="step-details">
+                                <h3>Escalation & Database Agent</h3>
+                                <p class="step-status">Pending...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Active Alerts & Reports Feed -->
+            <div class="grid-right">
+                <!-- Alerts Card -->
+                <div class="glass-card alerts-card">
+                    <div class="card-header-flex">
+                        <h2><i class="fa-solid fa-bell text-danger pulse-warning"></i> MCP Authority Alerts</h2>
+                        <span class="badge badge-danger" id="alertCount">0 Alerts</span>
+                    </div>
+                    <p class="card-desc">Clusters of 3+ reports trigger tool calls to our local MCP Server to notify local authorities.</p>
+                    <div class="alerts-feed-container" id="alertsFeed">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-shield-halved empty-icon"></i>
+                            <p>No active cluster alerts triggered yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Card -->
+                <div class="glass-card reports-feed-card">
+                    <h2><i class="fa-solid fa-list-check text-accent-blue"></i> Reported Water Sources</h2>
+                    <p class="card-desc">Feed of individual water sources reported by rural community users.</p>
+                    <div class="reports-feed-container" id="reportsFeed">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-database empty-icon"></i>
+                            <p>No reports registered. Use the panel on the left to submit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Detailed Reports / Advisories -->
+    <div class="modal" id="advisoryModal" style="display: none;">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clipboard-question text-accent-blue"></i> Diagnosis & Safety Advisory</h3>
+                <button type="button" class="close-modal-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="language-tabs">
+                    <button class="tab-btn active" id="tabEnBtn">English Recommendations</button>
+                    <button class="tab-btn" id="tabHiBtn">हिन्दी सुरक्षा निर्देश</button>
+                </div>
+                <div class="tab-content" id="tabEnContent"></div>
+                <div class="tab-content" id="tabHiContent" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
